@@ -19,6 +19,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   void initState() {
     super.initState();
   }
+
   String getMonth(int month) {
     switch (month) {
       case 1:
@@ -61,19 +62,20 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         break;
     }
   }
-  List<Widget> renderCategories() {
-      List<Widget> widlist = [];
-      article.categories
-          .forEach((f) => {widlist.add(Chip(label: Text(f["name"])))});
-      return widlist;
-  }
-  List<Widget> renderTags() {
-      List<Widget> widlist = [];
-      article.tags
-          .forEach((f) => {widlist.add(Chip(label: Text(f["name"])))});
-      return widlist;
 
+  List<Widget> renderCategories() {
+    List<Widget> widlist = [];
+    article.categories
+        .forEach((f) => {widlist.add(Chip(label: Text(f["name"])))});
+    return widlist;
   }
+
+  List<Widget> renderTags() {
+    List<Widget> widlist = [];
+    article.tags.forEach((f) => widlist.add(Chip(label: Text(f["name"]))));
+    return widlist;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: CustomScrollView(slivers: <Widget>[
@@ -108,7 +110,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
           Row(
             children: <Widget>[
               Icon(Icons.calendar_today),
-              Text("  ${article.postedOn.day}-${getMonth(article.postedOn.month)}-${article.postedOn.year}")
+              Text(
+                  "  ${article.postedOn.day}-${getMonth(article.postedOn.month)}-${article.postedOn.year}")
             ],
           ),
           SizedBox(height: 5.0),
@@ -125,20 +128,26 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               Text("  ${article.author["name"]}")
             ],
           ),
-          SizedBox(height:20.0),
-          article.categories.length !=0?Text("Categories :",
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20.0,
-                  color: Theme.of(context).primaryColor)):Container(),
+          SizedBox(height: 20.0),
+          article.categories.length != 0
+              ? Text("Categories :",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20.0,
+                      //color: Theme.of(context).primaryColor
+                      ))
+              : Container(),
           Wrap(
             children: renderCategories(),
           ),
-          article.tags.length!=0?Text("Tags :",
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20.0,
-                  color: Theme.of(context).primaryColor)):Container(),
+          article.tags.length != 0
+              ? Text("Tags :",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20.0,
+                      //color: Theme.of(context).primaryColor
+                      ))
+              : Container(),
           Wrap(
             children: renderTags(),
           ),

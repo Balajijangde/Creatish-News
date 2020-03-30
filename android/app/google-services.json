@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "194987303037",
+    "firebase_url": "https://creatish-news.firebaseio.com",
+    "project_id": "creatish-news",
+    "storage_bucket": "creatish-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194987303037:android:bd120b45a40e88cbc65114",
+        "android_client_info": {
+          "package_name": "com.example.creatish_news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194987303037-t4aq5d21kvemcordngkqgfa526dq5u72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.creatish_news",
+            "certificate_hash": "ba5f4126a33e56bebedad22d76ee600d93d5f59f"
+          }
+        },
+        {
+          "client_id": "194987303037-rup96rtarqi18k7n432uocavmbkquifp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5pEeKnl9WI3Oum_QXM5xAE2S38IkcDGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194987303037-rup96rtarqi18k7n432uocavmbkquifp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

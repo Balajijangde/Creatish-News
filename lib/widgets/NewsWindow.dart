@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:creatish_news/screens/SearchPage.dart';
-import 'package:creatish_news/widgets/AppDrawer.dart';
 import 'package:creatish_news/widgets/FetchingIndicator.dart';
 import 'package:creatish_news/widgets/NewsArticle.dart';
 import 'package:creatish_news/config.dart';
@@ -10,18 +8,20 @@ import 'package:connectivity/connectivity.dart';
 import "package:http/http.dart" as http;
 import 'package:logger/logger.dart';
 
-class TrendingScreen extends StatefulWidget {
+class NewsWindow extends StatefulWidget {
   @override
-  _TrendingScreenState createState() => _TrendingScreenState();
+  _NewsWindowState createState() => _NewsWindowState();
 }
 
-class _TrendingScreenState extends State<TrendingScreen> {
+class _NewsWindowState extends State<NewsWindow> with AutomaticKeepAliveClientMixin {
   ScrollController _controller;
   Logger log = Logger();
   bool _isFetching = false;
   bool _isFetchingAnotherPage = false;
   int _pageToFetch = 1;
   List<NewsArticleModel> news = [];
+
+  
 
   isConnected() async {
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -78,17 +78,20 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
   Widget renderTrendingScreen() {
     if (this._isFetching) {
-      return SliverFillRemaining(child: FetchingIndicator());
+      return Center(child: FetchingIndicator());
     } else if (!this._isFetching && this.news.length == 0) {
-      return SliverFillRemaining(child: Text("error occured"));
+      return Center(child: Text("error occured"));
     } else {
-      return SliverPadding(
-        padding: EdgeInsets.only(top:7.0),
-              sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => NewsArticle(article: news[index]),
-                childCount: news.length)),
-      );
+      return ListView.builder(
+        addAutomaticKeepAlives: true,
+        itemBuilder: (context, index) => NewsArticle(article: news[index]),
+        itemCount: news.length
+        );
+      // SliverList(
+      //     delegate: SliverChildBuilderDelegate(
+      //         (context, index) => NewsArticle(article: news[index]),
+      //         childCount: news.length));
+    
     }
   }
 
@@ -110,45 +113,36 @@ class _TrendingScreenState extends State<TrendingScreen> {
     _controller.addListener(_scrollListener);
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return CustomScrollView(
+  //         controller: _controller,
+  //         slivers: <Widget>[
+  //           this.renderTrendingScreen(),
+  //           SliverList(
+  //               delegate: SliverChildListDelegate([
+  //             this._isFetchingAnotherPage && !this._isFetching
+  //                 ? (Padding(
+  //                     padding: const EdgeInsets.symmetric(vertical: 30.0),
+  //                     child: Column(children: [
+  //                       CircularProgressIndicator(),
+  //                       SizedBox(height: 10.0),
+  //                     ]),
+  //                   ))
+  //                 : (Container())
+  //           ]))
+  //         ],
+  //       );
+  // }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: AppDrawer(),
-        //backgroundColor: Colors.grey[100],
-        body: CustomScrollView(
-          controller: _controller,
-          slivers: <Widget>[
-            SliverAppBar(
-              forceElevated: true,
-              snap: true,
-              centerTitle: true,
-              title: Text("Trending"),
-              floating: true,
-              actions: <Widget>[
-                IconButton(icon: Icon(Icons.search), onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => SearchPage()
-                      )
-                  );
-                })
-              ],
-            ),
-            this.renderTrendingScreen(),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              this._isFetchingAnotherPage && !this._isFetching
-                  ? (Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30.0),
-                      child: Column(children: [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 10.0),
-                      ]),
-                    ))
-                  : (Container())
-            ]))
-          ],
-        ));
+    return ListView(
+      children: [
+        Text("cjdanc")
+      ]
+    );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -37,3 +37,4 @@ const List demoNews = [
   },
   
 ];
+List appTabs = const ["Trending", "Politics", "National", "Sports", "Local", "Travel", "Health", "Tech"];
